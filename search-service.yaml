@@ -1,9 +1,4 @@
 spring:
-  application:
-    name: search-service
-  config:
-    import:
-      "optional:configserver:"
 server:
   port: 8096
 eureka:
