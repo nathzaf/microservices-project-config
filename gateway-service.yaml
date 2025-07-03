@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: gateway-service
+  config:
+    import:
+      "optional:configserver:"
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    password: password
+    h2:
+      console:
+        enabled: true
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      show-sql: true
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: accounting-service
+          uri: lb://accounting-service
+          predicates:
+            - Path=/v1/accountings/**
+        - id: boarding-service
+          uri: lb://boarding-service
+          predicates:
+            - Path=/v1/boardings/**
+        - id: booking-service
+          uri: lb://booking-service
+          predicates:
+            - Path=/v1/bookings/**
+        - id: checkin-service
+          uri: lb://checkin-service
+          predicates:
+            - Path=/v1/checkins/**
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/v1/customers/**
+        - id: flight-service
+          uri: lb://flight-service
+          predicates:
+            - Path=/v1/flights/**
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/v1/inventories/**
+        - id: luggage-service
+          uri: lb://luggage-service
+          predicates:
+            - Path=/v1/luggages/**
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/v1/notifications/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/v1/payments/**
+        - id: referencedata-service
+          uri: lb://referencedata-service
+          predicates:
+            - Path=/v1/referencedata/**
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/v1/searches/**
+        - id: seat-service
+          uri: lb://seat-service
+          predicates:
+            - Path=/v1/seats/**
+        - id: tariff-service
+          uri: lb://tariff-service
+          predicates:
+            - Path=/v1/tariffs/**
+
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    gateway:
+      enabled: true
+
