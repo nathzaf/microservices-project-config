@@ -11,7 +11,7 @@ spring:
       database-platform: org.hibernate.dialect.H2Dialect
       show-sql: true
 server:
-  port: 8084
+  port: 8097
 eureka:
   client:
     serviceUrl:
